@@ -10,7 +10,7 @@ module top_syn(input wire [7:0] din,
 	    output wire [7:0] dout,
 	    output wire locked);
 	    
-wire loopback;
+wire [7:0] loopback;
 wire clk;
 
 clk_wiz_0 clock_gen
@@ -23,13 +23,13 @@ clk_wiz_0 clock_gen
    // Status and control signals
    .locked(locked));      // output locked
 
-uart test_uart(.din(din),
-	       .wr_en(enable),
+uart test_uart(.din(loopback),
+	       .wr_en(rdy),
 	       .clock(clk),
-	       .tx(loopback),
+	       .tx(tx),
 	       .tx_busy(tx_busy),
-	       .rx(loopback),
+	       .rx(rx),
 	       .rdy(rdy),
 	       .rdy_clr(rdy_clr),
-	       .dout(dout));
+	       .dout(loopback));
 endmodule
